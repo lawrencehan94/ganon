@@ -86,6 +86,9 @@ extension SignupVC {
           }
           }
         })
+                                                 
+        //after uploadImageData ==
+        uploadImageData.resume()
       }
         
       })
