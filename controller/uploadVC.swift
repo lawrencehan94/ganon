@@ -48,11 +48,14 @@ extension uploadVC {
     
     //upload image by converting the image to a data
     let imageData = UIImageJPEGRepresentation(self.previewImage.image, 0.6) //0.6 is the compression size
+    
     let uploadImageData = imageReference.put(imageData!, metadata: nil) { (metadata, error) in
+      
       if error != nil {
         print(error!.localizedDescription)
         return
       } 
+                                                                         
       imageReference.downloadURL(completion: { (url, error) in
         if let url = url {
           let feed = ["userID": userId, 
@@ -63,10 +66,12 @@ extension uploadVC {
           let postFeed = ["\(userId)": feed]
           databaseReference.child("posts").updateChildValues(postFeed) //you're uploading a dictionary back to firebase's dictionary
           self.dismiss(animated: true, completion: nil) //dismiss image picker controller
-        }
-      
-    }
-  }
+          }  
+        })
+      }
+    
+    // After Upload Image Data is finished, you need to resume uploading
+    uploadImageData.resume()
 
 }
 
