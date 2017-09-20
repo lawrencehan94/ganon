@@ -17,6 +17,7 @@ class uploadVC: UIViewController {
   }
   
   @IBAction func createPost (_ sender: Any) {
+    uploadPost()
   } 
 }
 
